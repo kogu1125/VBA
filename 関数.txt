@@ -1,0 +1,4 @@
+=MAX(IF((C$6:C$24 = G6),D$6:D$24,""))
+=INDEX(B$6:B$24,MATCH(MAX(IF((C$6:C$24 = G6),D$6:D$24,"")),D$6:D$24,0),1)
+=INDEX(B$6:B$24,MATCH(LARGE(IF((C$6:C$24 = G6),D$6:D$24,""),2),D$6:D$24,0),1)
+=LARGE(IF((C$6:C$24 = G6),D$6:D$24,""),2)
