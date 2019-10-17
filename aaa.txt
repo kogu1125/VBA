@@ -1,0 +1,62 @@
+Sub 集計()
+
+Dim rowsData As Long '行数カウント用の変数
+Dim rowserachData As Long '検索対象行数カウント用の変数
+
+Dim rowsmedifirst As Integer  '元となるコード始めの行
+rowsmedifirst = 6
+Dim colsearchmedi As Integer  '検索対象のコード
+colsearchmedi = 3
+Dim rowsfirst As Integer  '検索対象となるコード始めの行
+rowsfirst = 6
+Dim colmedicode As String '元の列
+colmedicode = "G"
+Dim colsearch As String  '検索対象コードの列
+colsearch = "C"
+Dim colsearchValue As Integer  '検索対象の値の列
+colsearchValue = 4
+Dim colsearchTenpo As Integer  '検索対象の値の列
+colsearchTenpo = 2
+Dim coloutputNo1tenpo As Integer  '検索対象の値の列
+coloutputNo1tenpo = 14
+Dim coloutputNo1siyou As Integer  '検索対象の値の列
+coloutputNo1siyou = 15
+Dim coloutputNo2tenpo As Integer  '検索対象の値の列
+coloutputNo2tenpo = 16
+Dim coloutputNo2siyou As Integer  '検索対象の値の列
+coloutputNo2siyou = 17
+
+rowsData = Cells(Rows.Count, colmedicode).End(xlUp).Row
+rowserachData = Cells(Rows.Count, colsearch).End(xlUp).Row
+
+Dim i As Long
+Dim j As Long
+Dim tmpMax As Integer
+tmpMax = 0
+Dim tmpMax2 As Integer
+tmpMax2 = 0
+For i = rowsmedifirst To rowsData
+    For j = rowsfirst To rowserachData
+        If Cells(i, colmedicode).Value = Cells(j, colsearchmedi).Value Then
+            If (tmpMax < Cells(j, colsearchValue).Value) Then
+                Cells(i, coloutputNo1siyou).Value = Cells(j, colsearchValue).Value
+                Cells(i, coloutputNo1tenpo).Value = Cells(j, colsearchTenpo).Value
+                tmpMax = Cells(j, colsearchValue).Value
+            End If
+        End If
+    Next j
+    For j = rowsfirst To rowserachData
+        If Cells(i, colmedicode).Value = Cells(j, colsearchmedi).Value Then
+            If (tmpMax2 < Cells(j, colsearchValue).Value And Cells(j, colsearchValue).Value < tmpMax) Then
+                Cells(i, coloutputNo2siyou).Value = Cells(j, colsearchValue).Value
+                Cells(i, coloutputNo2tenpo).Value = Cells(j, colsearchTenpo).Value
+                tmpMax2 = Cells(j, colsearchValue).Value
+            End If
+        End If
+    Next j
+    tmpMax = 0
+    tmpMax2 = 0
+Next i
+
+End Sub
+
